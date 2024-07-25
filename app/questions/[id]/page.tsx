@@ -10,7 +10,7 @@ import Link from 'next/link';
 const QuestionPage: React.FC = () => {
   const router = useRouter();
   const params = useParams();
-  const questionId = parseInt(params.id, 10);
+  const questionId = Array.isArray(params.id) ? parseInt(params.id[0], 10) : parseInt(params.id, 10);
 
   const { answers, updateAnswer, loadAnswersFromStorage } = useStore((state) => ({
     answers: state.answers,

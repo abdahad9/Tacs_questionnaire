@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, MenuItem, Select, InputLabel, FormControl, Typography, FormControlLabel, RadioGroup, Radio, FormLabel } from '@mui/material';
+import { TextField, Button, MenuItem, Select, InputLabel, FormControl, Typography, FormControlLabel, RadioGroup, Radio, FormLabel, SelectChangeEvent } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import useStore from '../../store/useStore';
 
@@ -30,8 +30,14 @@ const ClientData: React.FC = () => {
     setFormData(profile);
   }, [profile]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
-    const { name, value } = e.target as HTMLInputElement;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: false });
+  };
+
+  const handleSelectChange = (e: SelectChangeEvent<string>) => {
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: false });
   };
@@ -121,7 +127,7 @@ const ClientData: React.FC = () => {
           />
           <FormControl fullWidth required error={errors.education}>
             <InputLabel>Highest Education</InputLabel>
-            <Select name="education" value={formData.education} onChange={handleChange}>
+            <Select name="education" value={formData.education} onChange={handleSelectChange}>
               <MenuItem value="HS">High School</MenuItem>
               <MenuItem value="Undergraduate">Undergraduate</MenuItem>
               <MenuItem value="Post-graduate">Post-graduate</MenuItem>
@@ -151,7 +157,7 @@ const ClientData: React.FC = () => {
             helperText={errors.yearsUntilRetire && "Years until retire is required"}
           />
           <FormControl component="fieldset" required error={errors.retirementChoice}>
-          <FormLabel id="demo-radio-buttons-group-label">Was retirement your choice </FormLabel>
+            <FormLabel id="demo-radio-buttons-group-label">Was retirement your choice</FormLabel>
             <RadioGroup
               row
               name="retirementChoice"

@@ -8,7 +8,7 @@ interface ProfileData {
   state: string;
   education: string;
   yearsSinceRetired: number;
-  yearsUntilRetirement: number;
+  yearsUntilRetire: number;
   retirementChoice: string;
 }
 
@@ -30,7 +30,7 @@ const initialProfile: ProfileData = {
   state: '',
   education: '',
   yearsSinceRetired: 0,
-  yearsUntilRetirement: 0,
+  yearsUntilRetire: 0,
   retirementChoice: '',
 };
 
