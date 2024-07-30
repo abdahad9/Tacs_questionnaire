@@ -101,9 +101,20 @@ const QuestionPage: React.FC = () => {
                 }
             }
         } else {
+            // Find the question based on questionIdNum
             const question = questions.find(q => q.id === questionIdNum);
-            const index = (question?.options ?? []).findIndex(value => value === answer[0]) + 1;
-            numericValue = index;
+        
+            // Check if question and question.options are defined and is an array
+            if (question && Array.isArray(question.options)) {
+                // Find the index of the answer in the options
+                const index = question.options.findIndex(value => value === answer[0]);
+                
+                // If index is -1, it means the answer was not found; handle it as needed
+                numericValue = index !== -1 ? index + 1 : undefined; // or handle as needed
+            } else {
+                // Handle cases where the question or options are not available
+                numericValue = undefined; // or handle as needed
+            }
         }
 
         return { questionId: questionIdNum, numericValue, ratings };
