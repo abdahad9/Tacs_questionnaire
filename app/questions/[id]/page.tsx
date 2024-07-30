@@ -8,6 +8,11 @@ import questions from '../../data/questions';
 import Link from 'next/link';
 import * as XLSX from 'xlsx'
 
+interface Rating {
+    name: string | undefined;
+    rating: string;
+}
+
 const QuestionPage: React.FC = () => {
   const router = useRouter();
   const params = useParams();
@@ -67,42 +72,49 @@ const QuestionPage: React.FC = () => {
 
   const generateExcel = (data: any, answers: Record<number, any>) => {
 
-    const transformed = Object.entries(answers).map(([questionId, answer]) => {
-        let numericValue;
-        let ratings = {};
-        
-        if (answer[0] === "yes" && parseInt(questionId) < 11) {
-            numericValue = 10;
-        } else if (answer[0] === "no" && parseInt(questionId) < 11) {
-            numericValue = 0;
-        } else if (parseInt(questionId) > 53 && parseInt(questionId) < 58) {
-            const question = questions.find(q => q.id === parseInt(questionId));
+    type TransformedItem = {
+        questionId: number;
+        numericValue?: number;
+        ratings: { [key: number]: Rating };
+    };
+// Transform answers
+    const transformed: TransformedItem[] = Object.entries(answers).map(([questionId, answer]) => {
+        const questionIdNum = parseInt(questionId);
+        let numericValue: number | undefined;
+        let ratings: { [key: number]: Rating } = {};
 
-            if (question) {
+        if (answer[0] === "yes" && questionIdNum < 11) {
+            numericValue = 10;
+        } else if (answer[0] === "no" && questionIdNum < 11) {
+            numericValue = 0;
+        } else if (questionIdNum > 53 && questionIdNum < 58) {
+            const question = questions.find(q => q.id === questionIdNum);
+
+            if (question && question.options) {
                 for (const [index, rating] of Object.entries(answer)) {
                     const optionIndex = parseInt(index);
-                    const optionName = question?.options[optionIndex];
-                    ratings[optionIndex] = { name: optionName, rating: rating };
+                    const optionName = question.options[optionIndex];
+                    const ratingValue = rating as string;
+                    if (optionName !== undefined) {
+                        ratings[optionIndex] = { name: optionName, rating: ratingValue };
+                    }
                 }
             }
         } else {
-            // console.log('hello :',questions);
-            const question = questions.find(q => q.id === parseInt(questionId));
-            // console.log('question  :',question );
+            const question = questions.find(q => q.id === questionIdNum);
             const index = (question?.options ?? []).findIndex(value => value === answer[0]) + 1;
-            // console.log('index :',index);
             numericValue = index;
         }
-        
-        return { questionId, numericValue, ratings };
+
+        return { questionId: questionIdNum, numericValue, ratings };
     });
     // console.log('transformed :',transformed)
 
     // Separate ratings from the transformed answers
-    const ratings = {};
+    const ratings: { [key: number]: Rating[] } = {};
     transformed.forEach(({ questionId, ratings: questionRatings }) => {
         if (Object.keys(questionRatings).length > 0) {
-            ratings[questionId] = questionRatings;
+            ratings[questionId] = Object.values(questionRatings);
         }
     });
 
