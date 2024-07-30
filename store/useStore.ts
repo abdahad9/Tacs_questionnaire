@@ -2,13 +2,13 @@ import create from 'zustand';
 
 interface ProfileData {
   name: string;
-  age: number;
+  age: number | string;
   email: string;
   city: string;
   state: string;
   education: string;
-  yearsSinceRetired: number;
-  yearsUntilRetire: number;
+  yearsSinceRetired: number | string;
+  yearsUntilRetire: number | string;
   retirementChoice: string;
 }
 
@@ -24,13 +24,13 @@ interface QuestionnaireState {
 
 const initialProfile: ProfileData = {
   name: '',
-  age: 1,
+  age: '',
   email: '',
   city: '',
   state: '',
   education: '',
-  yearsSinceRetired: 0,
-  yearsUntilRetire: 0,
+  yearsSinceRetired: '',
+  yearsUntilRetire: '',
   retirementChoice: '',
 };
 

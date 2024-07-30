@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, MenuItem, Select, InputLabel, FormControl, Typography, FormControlLabel, RadioGroup, Radio, FormLabel, SelectChangeEvent } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import useStore from '../../store/useStore';
+import * as XLSX from 'xlsx'
+
 
 const ClientData: React.FC = () => {
   const { profile, setProfile, loadProfileFromStorage } = useStore();
@@ -17,8 +19,8 @@ const ClientData: React.FC = () => {
     city: false,
     state: false,
     education: false,
-    yearsSinceRetired: false,
-    yearsUntilRetire: false,
+    // yearsSinceRetired: false,
+    // yearsUntilRetire: false,
     retirementChoice: false,
   });
 
@@ -32,7 +34,17 @@ const ClientData: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const updatedFormData = { ...formData, [name]: value };
+
+    // Validation logic for retirement years
+    if (name === 'yearsSinceRetired' && value !== '') {
+      updatedFormData.yearsUntilRetire = Number(value) > 0 ? 0 : formData.yearsUntilRetire;
+    }
+    if (name === 'yearsUntilRetire' && value !== '') {
+      updatedFormData.yearsSinceRetired = Number(value) > 0 ? 0 : formData.yearsSinceRetired;
+    }
+
+    setFormData(updatedFormData);
     setErrors({ ...errors, [name]: false });
   };
 
@@ -51,22 +63,46 @@ const ClientData: React.FC = () => {
     e.preventDefault();
     const newErrors = {
       name: !formData.name,
-      age: !formData.age,
+      age: !formData.age || isNaN(Number(formData.age)),
       email: !formData.email || !validateEmail(formData.email),
       city: !formData.city,
       state: !formData.state,
       education: !formData.education,
-      yearsSinceRetired: !formData.yearsSinceRetired,
-      yearsUntilRetire: !formData.yearsUntilRetire,
+      // yearsSinceRetired: !formData.yearsSinceRetired,
+      // yearsUntilRetire: !formData.yearsUntilRetire,
       retirementChoice: !formData.retirementChoice,
     };
 
     if (Object.values(newErrors).some((error) => error)) {
+      console.log(newErrors);
       setErrors(newErrors);
     } else {
       setProfile(formData);
+      // generateExcel(formData);
       router.push('/questions/1');
     }
+  };
+
+  const generateExcel = (data: any) => {
+    const worksheetData = [
+      ['Field', 'Value'],
+      ['Name', data.name],
+      ['Age', data.age],
+      ['Email', data.email],
+      ['City', data.city],
+      ['State', data.state],
+      ['Education', data.education],
+      ['Years Since Retired', data.yearsSinceRetired],
+      ['Years Until Retire', data.yearsUntilRetire],
+      ['Retirement Choice', data.retirementChoice],
+    ];
+
+    const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Profile Data');
+
+    // Save to file
+    XLSX.writeFile(workbook, 'profile_data.xlsx');
   };
 
   return (
@@ -141,9 +177,6 @@ const ClientData: React.FC = () => {
             fullWidth
             value={formData.yearsSinceRetired}
             onChange={handleChange}
-            required
-            error={errors.yearsSinceRetired}
-            helperText={errors.yearsSinceRetired && "Years since retired is required"}
           />
           <TextField
             name="yearsUntilRetire"
@@ -152,9 +185,6 @@ const ClientData: React.FC = () => {
             fullWidth
             value={formData.yearsUntilRetire}
             onChange={handleChange}
-            required
-            error={errors.yearsUntilRetire}
-            helperText={errors.yearsUntilRetire && "Years until retire is required"}
           />
           <FormControl component="fieldset" required error={errors.retirementChoice}>
             <FormLabel id="demo-radio-buttons-group-label">Was retirement your choice</FormLabel>
