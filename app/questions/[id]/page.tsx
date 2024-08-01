@@ -127,12 +127,10 @@ const QuestionPage: React.FC = () => {
     });
 
     // Transformed data for other purposes
-    // const transformedData = transformed.map(({ questionId, numericValue }) => {if(numericValue != undefined)[questionId, numericValue]});
     const filteredTransformedData = transformed.filter(({ questionId, numericValue }) => {
         if (numericValue != undefined) {
             return [questionId, numericValue]; // Exclude rating questions from transformed data
         }
-        // return true;
     });
 
     const worksheetData = [
@@ -219,13 +217,6 @@ const QuestionPage: React.FC = () => {
        <Typography variant="h6">{`Answered: ${Object.keys(answers).length}/${questions.length}`}</Typography>
      </div>
    <div className="w-full p-8 bg-white rounded shadow">
-     {/* <hr className="my-6" /> */}
-    {/* <div className="flex flex-col items-center">
-      <div className="w-full p-4 bg-white shadow-md rounded-md">
-        <div className="flex justify-between mb-4">
-          <Typography variant="h5">{question?.group}</Typography>
-          <Typography variant="h6">{`Answered: ${Object.keys(answers).length}/${questions.length}`}</Typography>
-        </div> */}
         <Typography variant="body1" className="mb-6">
           {`${questionId} ) `} {question?.text}
         </Typography>
