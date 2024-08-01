@@ -16,8 +16,7 @@ export default function Home() {
         Your answers will be saved as you go, which allows you to navigate back to a previous question.
       </Typography>
       <Typography variant="body1" paragraph>
-        When you&apos;re finished, you will have an opportunity for your coach (or one of ours if you don&apos;t already have one) to
-        receive, review, and share your summary report with you.
+          Thanks for your participation!
       </Typography>
       <div className="flex justify-center mt-6">
         <Link href="/form-data">
