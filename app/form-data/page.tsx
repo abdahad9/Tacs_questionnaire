@@ -74,7 +74,6 @@ const ClientData: React.FC = () => {
     };
 
     if (Object.values(newErrors).some((error) => error)) {
-      console.log(newErrors);
       setErrors(newErrors);
     } else {
       setProfile(formData);

@@ -63,7 +63,6 @@ const QuestionPage: React.FC = () => {
     if (questionId < questions.length) {
       router.push(`/questions/${questionId + 1}`);
     } else {
-        console.log('profile :',profile);
         generateExcel(profile, answers);
       router.push('/summary'); // Assuming there's a summary page after the last question
     }
@@ -118,7 +117,6 @@ const QuestionPage: React.FC = () => {
 
         return { questionId: questionIdNum, numericValue, ratings };
     });
-    // console.log('transformed :',transformed)
 
     // Separate ratings from the transformed answers
     const ratings: { [key: number]: Rating[] } = {};
@@ -132,13 +130,10 @@ const QuestionPage: React.FC = () => {
     // const transformedData = transformed.map(({ questionId, numericValue }) => {if(numericValue != undefined)[questionId, numericValue]});
     const filteredTransformedData = transformed.filter(({ questionId, numericValue }) => {
         if (numericValue != undefined) {
-            // ratings[questionId] = questionRatings;
             return [questionId, numericValue]; // Exclude rating questions from transformed data
         }
         // return true;
     });
-    // console.log('transformedData :',filteredTransformedData);
-    // console.log('data :',data);
 
     const worksheetData = [
         ['Field', 'Value'],
@@ -155,23 +150,19 @@ const QuestionPage: React.FC = () => {
         ['Questionnaire', 'Answers']
     ];
 
-    // console.log('transformedData :',transformedData);
     for (const [questionId, answer] of Object.entries(filteredTransformedData)) {
-        // console.log('transformedData :',answer.numericValue);
         worksheetData.push([`Question ${parseInt(questionId) + 1}`, answer.numericValue]);
     }
 
     worksheetData.push(['', '']); // Another empty row for separation
     worksheetData.push(['Ratings', '']);
 
-    // console.log('ratings :',ratings);
     for (const [questionId, ratingData] of Object.entries(ratings)) {
         for (const { name, rating } of Object.values(ratingData)) {
             worksheetData.push([name, rating]);
         }
     }
 
-    console.log('Worksheet Data:', worksheetData);
 
     // Code to generate Excel file from worksheetData goes here...
 
