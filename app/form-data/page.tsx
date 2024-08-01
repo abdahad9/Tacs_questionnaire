@@ -78,31 +78,8 @@ const ClientData: React.FC = () => {
       setErrors(newErrors);
     } else {
       setProfile(formData);
-      // generateExcel(formData);
       router.push('/questions/1');
     }
-  };
-
-  const generateExcel = (data: any) => {
-    const worksheetData = [
-      ['Field', 'Value'],
-      ['Name', data.name],
-      ['Age', data.age],
-      ['Email', data.email],
-      ['City', data.city],
-      ['State', data.state],
-      ['Education', data.education],
-      ['Years Since Retired', data.yearsSinceRetired],
-      ['Years Until Retire', data.yearsUntilRetire],
-      ['Retirement Choice', data.retirementChoice],
-    ];
-
-    const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Profile Data');
-
-    // Save to file
-    XLSX.writeFile(workbook, 'profile_data.xlsx');
   };
 
   return (

@@ -1,15 +1,15 @@
 const questions = [
   // Group 1: Yes/No Questions
-  { id: 1, text: 'I have found retirement to be a little boring.', type: 'yesno', group: 'Please answer the following question “yes” or “No”' },
-  { id: 2, text: 'I enjoy having a daily plan of structured activities.', type: 'yesno', group: 'Please answer the following question “yes” or “No”' },
-  { id: 3, text: 'I like to do things on the spur of the moment.', type: 'yesno', group: 'Please answer the following question “yes” or “No”' },
-  { id: 4, text: 'I feel ready to start a new chapter in my life.', type: 'yesno', group: 'Please answer the following question “yes” or “No”' },
-  { id: 5, text: 'I enjoy traveling to foreign countries where I don’t speak the language.', type: 'yesno', group: 'Please answer the following question “yes” or “No”' },
-  { id: 6, text: 'I consider myself to be an early adaptor of new technology.', type: 'yesno', group: 'Please answer the following question “yes” or “No”' },
-  { id: 7, text: 'I don’t like things that are predictable.', type: 'yesno', group: 'Please answer the following question “yes” or “No”' },
-  { id: 8, text: 'I have enjoyed many of the same hobbies for years.', type: 'yesno', group: 'Please answer the following question “yes” or “No”' },
-  { id: 9, text: 'I like moving and setting up a new home.', type: 'yesno', group: 'Please answer the following question “yes” or “No”' },
-  { id: 10, text: 'I enjoy trying new things.', type: 'yesno', group: 'Please answer the following question “yes” or “No”' },
+  { id: 1, text: 'I have found retirement to be a little boring.', type: 'yesno', group: 'Please answer the following question “Yes” or “No”' },
+  { id: 2, text: 'I enjoy having a daily plan of structured activities.', type: 'yesno', group: 'Please answer the following question “Yes” or “No”' },
+  { id: 3, text: 'I like to do things on the spur of the moment.', type: 'yesno', group: 'Please answer the following question “Yes” or “No”' },
+  { id: 4, text: 'I feel ready to start a new chapter in my life.', type: 'yesno', group: 'Please answer the following question “Yes” or “No”' },
+  { id: 5, text: 'I enjoy traveling to foreign countries where I don’t speak the language.', type: 'yesno', group: 'Please answer the following question “Yes” or “No”' },
+  { id: 6, text: 'I consider myself to be an early adaptor of new technology.', type: 'yesno', group: 'Please answer the following question “Yes” or “No”' },
+  { id: 7, text: 'I don’t like things that are predictable.', type: 'yesno', group: 'Please answer the following question “Yes” or “No”' },
+  { id: 8, text: 'I have enjoyed many of the same hobbies for years.', type: 'yesno', group: 'Please answer the following question “Yes” or “No”' },
+  { id: 9, text: 'I like moving and setting up a new home.', type: 'yesno', group: 'Please answer the following question “Yes” or “No”' },
+  { id: 10, text: 'I enjoy trying new things.', type: 'yesno', group: 'Please answer the following question “Yes” or “No”' },
 
   // Group 2: Overall Adjustment
   { id: 11, text: 'Are you enjoying retirement as much as you thought you would? ', type: 'multiple', group: 'Overall adjustment', options: ['Not At All', 'Slightly', 'Moderately', 'Very', 'Extremely'] },
@@ -69,7 +69,7 @@ const questions = [
    { id: 51, text: 'Are, or were you, a part of any professional organizations?', type: 'multiple', group: 'The following questions refer to your past or present work life:', options: ['Never', 'A While Back', 'One', 'Yes - A Few', 'Yes – A Lot'] },   
    { id: 52, text: 'To what degree do, or did you, rely on co-workers for personal relationships?', type: 'multiple', group: 'The following questions refer to your past or present work life:', options: ['Not At All', 'Slightly', 'Moderately', 'Very', 'Extremely'] },   
    //   lifestyle
-   { id: 53, text: 'Living a healthy lifestyle?', type: 'multiple', group: 'lifestyle', options: ['Not At All', 'Slightly', 'Moderately', 'Very', 'Extremely'] },
+   { id: 53, text: 'Living a healthy Lifestyle?', type: 'multiple', group: 'lifestyle', options: ['Not At All', 'Slightly', 'Moderately', 'Very', 'Extremely'] },
 
 
   // Unnumbered ranking questions

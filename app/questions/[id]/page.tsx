@@ -48,7 +48,6 @@ const QuestionPage: React.FC = () => {
     setError('');
     setAnswer((prevAnswer: any) => {
       const updatedAnswer = { ...prevAnswer, [index]: value };
-    //   console.log(updatedAnswer);
       updateAnswer(questionId, updatedAnswer);
       return updatedAnswer;
     });
@@ -70,7 +69,7 @@ const QuestionPage: React.FC = () => {
     }
   };
 
-  const generateExcel = (data: any, answers: Record<number, any>) => {
+  const generateExcel = async (data: any, answers: Record<number, any>) => {
 
     type TransformedItem = {
         questionId: number;
@@ -100,22 +99,22 @@ const QuestionPage: React.FC = () => {
                     }
                 }
             }
-        } else {
-            // Find the question based on questionIdNum
-            const question = questions.find(q => q.id === questionIdNum);
+      } else {
+    // Find the question based on questionIdNum
+    const question = questions.find(q => q.id === questionIdNum);
+
+    // Check if question and question.options are defined and is an array
+    if (question && Array.isArray(question.options)) {
+        // Find the index of the answer in the options
+        const index = question.options.findIndex(value => value === answer[0]);
         
-            // Check if question and question.options are defined and is an array
-            if (question && Array.isArray(question.options)) {
-                // Find the index of the answer in the options
-                const index = question.options.findIndex(value => value === answer[0]);
-                
-                // If index is -1, it means the answer was not found; handle it as needed
-                numericValue = index !== -1 ? index + 1 : undefined; // or handle as needed
-            } else {
-                // Handle cases where the question or options are not available
-                numericValue = undefined; // or handle as needed
-            }
-        }
+        // If index is -1, it means the answer was not found; handle it as needed
+        numericValue = index !== -1 ? index + 1 : undefined; // or handle as needed
+    } else {
+        // Handle cases where the question or options are not available
+        numericValue = undefined; // or handle as needed
+    }
+}
 
         return { questionId: questionIdNum, numericValue, ratings };
     });
@@ -139,7 +138,7 @@ const QuestionPage: React.FC = () => {
         // return true;
     });
     // console.log('transformedData :',filteredTransformedData);
-    console.log('data :',data);
+    // console.log('data :',data);
 
     const worksheetData = [
         ['Field', 'Value'],
@@ -172,7 +171,7 @@ const QuestionPage: React.FC = () => {
         }
     }
 
-    // console.log('Worksheet Data:', worksheetData);
+    console.log('Worksheet Data:', worksheetData);
 
     // Code to generate Excel file from worksheetData goes here...
 
@@ -180,13 +179,39 @@ const QuestionPage: React.FC = () => {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Profile Data');
 
+    const buffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+    // return buffer;
+
     // Sanitize the user's name to create a valid filename
     const sanitizedFileName = data.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
     const filename = `${sanitizedFileName}_profile_data.xlsx`;
 
+    
+    try {
+        const response = await fetch('/api/upload-drive', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/octet-stream',
+                'X-Filename': filename, // Optional: Pass filename in headers
+            },
+            body: buffer, // Send buffer directly
+        });
+
+        if (!response.ok) {
+            console.error('Failed to upload data:', response.statusText);
+            return;
+        }
+
+        const result = await response.json();
+        console.log('Upload result:', result);
+    } catch (error) {
+        console.error('Error uploading file:', error);
+    }
+
     // Save to file
-    XLSX.writeFile(workbook, filename);
+    // XLSX.writeFile(workbook, filename);
   };
+  
 
   const handlePrevious = () => {
     updateAnswer(questionId, answer);
