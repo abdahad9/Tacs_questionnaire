@@ -15,8 +15,11 @@ const questions = [
   { id: 11, text: 'Are you enjoying retirement as much as you thought you would? ', type: 'multiple', group: 'Overall adjustment', options: ['Not At All', 'Slightly', 'Moderately', 'Very', 'Extremely'] },
   { id: 12, text: 'Do you ever think about going back to work part-time?', type: 'multiple', group: 'Overall adjustment', options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Definitely Yes'] },
   { id: 13, text: 'Would you say your work created your personal identity?', type: 'multiple', group: 'Overall adjustment', options: ['A Lot', 'Quite a bit', 'Moderately', 'Hardly at all', 'Not At All'] },
+  { id: 14, text: 'How important is it for you to have a written plan for life in retirement?', type: 'multiple', group: 'Overall adjustment', options: ['Not At All', 'Slightly', 'Moderately', 'Very', 'Extremely'] },
+  { id: 15, text: 'How would you rate your ability to deal with change in your personal life?', type: 'multiple', group: 'Overall adjustment', options: ['Very Poorly',	'Somewhat Poorly', 'Could Do Better', 'Good Enough', 'Very Well'] },
 
-  { id: 14, text: 'What life topics are of most concern to you? (5 = most concerned)', type: 'ranking', group: 'Life Topics', options: ['Significant Medical Issues', 'Feeling Irrelevant', 'Declining Cognition','Death of a Loved One','No Direction in Life','Significant Other Relationship Failure','Elder Caregiving','Staying in Shape','Not Having any Friends'] }
+{ id: 56, text: 'What topics are of interest to you? (5 = most interested)', type: 'ranking', group: 'Topics of Interest', options: ['Art', 'Science', 'Politics','Literature','Travel','Photography','Painting','City Life','Language','Music','Cooking','Nature','Food & Wine','Cinema','Performing Arts','World Affairs','Technology','Professional Sports'] },
+  { id: 57, text: 'What life topics are of most concern to you? (5 = most concerned)', type: 'ranking', group: 'Life Topics', options: ['Significant Medical Issues', 'Feeling Irrelevant', 'Declining Cognition','Death of a Loved One','No Direction in Life','Significant Other Relationship Failure','Elder Caregiving','Staying in Shape','Not Having any Friends'] }
 
 ];
 
