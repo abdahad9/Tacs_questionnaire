@@ -18,8 +18,8 @@ const questions = [
   { id: 14, text: 'How important is it for you to have a written plan for life in retirement?', type: 'multiple', group: 'Overall adjustment', options: ['Not At All', 'Slightly', 'Moderately', 'Very', 'Extremely'] },
   { id: 15, text: 'How would you rate your ability to deal with change in your personal life?', type: 'multiple', group: 'Overall adjustment', options: ['Very Poorly',	'Somewhat Poorly', 'Could Do Better', 'Good Enough', 'Very Well'] },
 
-{ id: 56, text: 'What topics are of interest to you? (5 = most interested)', type: 'ranking', group: 'Topics of Interest', options: ['Art', 'Science', 'Politics','Literature','Travel','Photography','Painting','City Life','Language','Music','Cooking','Nature','Food & Wine','Cinema','Performing Arts','World Affairs','Technology','Professional Sports'] },
-  { id: 57, text: 'What life topics are of most concern to you? (5 = most concerned)', type: 'ranking', group: 'Life Topics', options: ['Significant Medical Issues', 'Feeling Irrelevant', 'Declining Cognition','Death of a Loved One','No Direction in Life','Significant Other Relationship Failure','Elder Caregiving','Staying in Shape','Not Having any Friends'] }
+{ id: 16, text: 'What topics are of interest to you? (5 = most interested)', type: 'ranking', group: 'Topics of Interest', options: ['Art', 'Science', 'Politics','Literature','Travel','Photography','Painting','City Life','Language','Music','Cooking','Nature','Food & Wine','Cinema','Performing Arts','World Affairs','Technology','Professional Sports'] },
+  { id: 17, text: 'What life topics are of most concern to you? (5 = most concerned)', type: 'ranking', group: 'Life Topics', options: ['Significant Medical Issues', 'Feeling Irrelevant', 'Declining Cognition','Death of a Loved One','No Direction in Life','Significant Other Relationship Failure','Elder Caregiving','Staying in Shape','Not Having any Friends'] }
 
 ];
 
