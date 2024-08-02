@@ -29,6 +29,9 @@ const QuestionPage: React.FC = () => {
   const [error, setError] = useState('');
 
   const question = questions.find(q => q.id === questionId);
+  const group = question?.group || '';
+  const isGroupIncluded = ['Please answer the following question “Yes” or “No”', 'Professional Skills', 'Causes', 'Topics of Interest', 'Life Topics'].includes(group);
+
 
   useEffect(() => {
     if (!question) {
@@ -212,8 +215,10 @@ const QuestionPage: React.FC = () => {
   return (
      // <div className="flex flex-col items-center justify-center h-screen">
      <>
-     <div className="flex justify-between mb-4">
-       <Typography variant="h5">{question?.group}</Typography>
+       <div className={`flex ${isGroupIncluded ? 'justify-between' : 'justify-end'} mb-4`}>
+      {isGroupIncluded ? (
+        <Typography variant="h5">{question?.group}</Typography>
+      ) : ''}
        <Typography variant="h6">{`Answered: ${Object.keys(answers).length}/${questions.length}`}</Typography>
      </div>
    <div className="w-full p-8 bg-white rounded shadow">

@@ -40,7 +40,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         // Create file metadata
         const fileMetadata: drive_v3.Schema$File = {
             name: request.headers.get('X-Filename') || 'test-file.xlsx', 
-            parents: ['1i3ZBx4xgcNY7YJhY8fxD3ZRzNT7z0Ai9'], // Use your actual folder ID
+            parents: ['11bkguJ0OXw9k6m73PSM7EH_1HcknxD1w'], // Use your actual folder ID
         };
 
         // Create media for the file upload
