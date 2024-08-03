@@ -23,8 +23,9 @@ interface UploadResponse {
 }
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
+    let auth; 
     try {
-        const auth = await authenticate();
+        auth = await authenticate();
         if (!auth.client) {
             throw new Error('Authentication failed');
         }
@@ -61,10 +62,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
             fileId: response.data.id,
         } as UploadResponse);
     } catch (error) {
+        console.error('auth', auth);
         console.error('Error during authentication or file upload:', error);
         return NextResponse.json({
             message: 'Error during authentication or file upload',
             error: (error as Error).message,
+            auth :  auth
         } as UploadResponse);
     }
 }
