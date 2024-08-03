@@ -40,7 +40,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
         // Create file metadata
         const fileMetadata: drive_v3.Schema$File = {
-            name: request.headers.get('X-Filename') || 'test-file.xlsx', 
+            name: sanitizeFilename(request.headers.get('X-Filename') || 'test-file.xlsx'), 
             parents: ['11bkguJ0OXw9k6m73PSM7EH_1HcknxD1w'], // Use your actual folder ID
         };
 
@@ -62,12 +62,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
             fileId: response.data.id,
         } as UploadResponse);
     } catch (error) {
-        console.error('auth', auth);
+        console.error('Authentication details:', auth);
         console.error('Error during authentication or file upload:', error);
         return NextResponse.json({
             message: 'Error during authentication or file upload',
             error: (error as Error).message,
-            auth :  auth
         } as UploadResponse);
     }
 }
@@ -77,4 +76,9 @@ const bufferToStream = (buffer: Buffer): Readable => {
     stream.push(buffer);
     stream.push(null); // Indicate end of stream
     return stream;
+};
+
+// Function to sanitize the filename
+const sanitizeFilename = (filename: string): string => {
+    return filename.replace(/\s+/g, '_');
 };
