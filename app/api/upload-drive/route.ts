@@ -63,11 +63,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         } as UploadResponse);
     } catch (error) {
         console.error('Error during authentication or file upload:s', error);
-        console.error('auth', auth);
         return NextResponse.json({
             message: 'Error during authentication or file uploadss',
             error: (error as Error).message,
-            authDetails: auth?.details,
         } as UploadResponse);
     }
 }
