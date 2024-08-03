@@ -62,11 +62,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
             fileId: response.data.id,
         } as UploadResponse);
     } catch (error) {
-        console.error('Authentication details:', auth);
         console.error('Error during authentication or file upload:', error);
         return NextResponse.json({
             message: 'Error during authentication or file upload',
             error: (error as Error).message,
+            authDetails: auth ? auth.details : null,
         } as UploadResponse);
     }
 }
