@@ -38,10 +38,15 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
         const readableStream = bufferToStream(buffer);
 
+         // Get the current date and time in ISO format
+         const currentDate = new Date().toISOString();
+
         // Create file metadata
         const fileMetadata: drive_v3.Schema$File = {
             name: sanitizeFilename(request.headers.get('X-Filename') || 'test-file.xlsx'), 
             parents: ['11bkguJ0OXw9k6m73PSM7EH_1HcknxD1w'], // Use your actual folder ID
+            createdTime: currentDate,
+            modifiedTime: currentDate
         };
 
         // Create media for the file upload
