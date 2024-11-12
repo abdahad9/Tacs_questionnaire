@@ -148,7 +148,7 @@ const ClientData: React.FC = () => {
           </FormControl>
           <TextField
             name="yearsSinceRetired"
-            label="How many years since retired"
+            label="If applicable, how many since retirement"
             type="number"
             fullWidth
             value={formData.yearsSinceRetired}
@@ -156,7 +156,7 @@ const ClientData: React.FC = () => {
           />
           <TextField
             name="yearsUntilRetire"
-            label="How many years until you expect to retire"
+            label="If not retired, how many years until you expect to"
             type="number"
             fullWidth
             value={formData.yearsUntilRetire}
