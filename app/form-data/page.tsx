@@ -148,19 +148,21 @@ const ClientData: React.FC = () => {
           </FormControl>
           <TextField
             name="yearsSinceRetired"
-            label="If applicable, how many since retirement"
+            label="If applicable, how many years since retirement"
             type="number"
             fullWidth
             value={formData.yearsSinceRetired}
             onChange={handleChange}
+            inputProps={{ min: 1 }} 
           />
           <TextField
             name="yearsUntilRetire"
-            label="If not retired, how many years until you expect to"
+            label="If not retired, how many years until you expect to retire"
             type="number"
             fullWidth
             value={formData.yearsUntilRetire}
             onChange={handleChange}
+            inputProps={{ min: 1 }} 
           />
           <FormControl component="fieldset" required error={errors.retirementChoice}>
             <FormLabel id="demo-radio-buttons-group-label">Was retirement your choice</FormLabel>
